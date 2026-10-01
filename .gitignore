@@ -1,0 +1,9 @@
+data/
+.vscode/
+work_dirs/
+mmdetection/
+mmsegmentation/
+outputs/
+submission.zip
+__pycache__/
+*.pyc

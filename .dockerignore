@@ -1,0 +1,16 @@
+**/.git
+**/.vscode
+**/.ipynb_checkpoints
+**/__pycache__
+**/*.pyc
+
+# Ignore data, outputs, and work directories that will be generated or mounted
+/data/
+/work_dirs/
+/outputs/
+/mmdetection/
+/mmsegmentation/
+
+# Ignore local development files
+Dockerfile
+.dockerignore

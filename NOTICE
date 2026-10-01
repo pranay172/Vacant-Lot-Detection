@@ -1,0 +1,12 @@
+Vacant Lot Detection
+Copyright 2025 Pranay Vandanapu
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The files in configs/ are adapted from configuration files in OpenMMLab's
+MMDetection and MMSegmentation (https://github.com/open-mmlab), which are
+licensed under the Apache License, Version 2.0.
+
+The license covers the code in this repository only. It does not cover the
+competition data or other content provided by Solafune Inc., which is not
+included in this repository and may not be redistributed.

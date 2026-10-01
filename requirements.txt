@@ -1,0 +1,11 @@
+# MMLab dependencies (mmcv, mmengine, mmdet, mmseg) are installed via MIM
+# in the Dockerfile. This file is for other Python packages.
+
+albumentations
+opencv-python-headless
+opencv-python
+Pillow
+scikit-learn
+tqdm
+ftfy
+regex

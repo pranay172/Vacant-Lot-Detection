@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680" role="img" aria-labelledby="title desc">
+<title id="title">Solution pipeline</title>
+<desc id="desc">Two parallel pipelines. Detection: TIFF to PNG and COCO, five augmented copies per image, DINO Swin-L, score threshold 0.35, bbox.json. Segmentation: TIFF to PNG and masks, original plus five augmentations, Mask2Former Swin-L, polygonization, segmentation.json. Detection is scored with F-beta 0.5 and segmentation with F1; the harmonic mean gives 0.7341, 7th of 467.</desc>
+<style>
+  :root { color-scheme: light dark; }
+  svg {
+    --ink:#1f2328; --ink2:#59636e; --muted:#818b98; --grid:#eaeef2; --axis:#d1d9e0;
+    --node:#ffffff; --stroke:#d1d9e0; --other:#afb8c1; --ring:#ffffff;
+    --det:#2a78d6; --seg:#eb6834; --det-tint:rgba(42,120,214,0.08); --seg-tint:rgba(235,104,52,0.08);
+    --hero:#0b1220;
+  }
+  @media (prefers-color-scheme: dark) {
+    svg {
+      --ink:#f0f6fc; --ink2:#9198a1; --muted:#7d8590; --grid:#21262d; --axis:#3d444d;
+      --node:#151b23; --stroke:#3d444d; --other:#545d68; --ring:#0d1117;
+      --det:#3987e5; --seg:#d95926; --det-tint:rgba(57,135,229,0.12); --seg-tint:rgba(217,89,38,0.12);
+    }
+  }
+  text { font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
+  .mono { font-family:ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
+  .ink { fill:var(--ink); } .ink2 { fill:var(--ink2); } .muted { fill:var(--muted); }
+  .node { fill:var(--node); stroke:var(--stroke); stroke-width:1.5; }
+  .edge { stroke:var(--muted); stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .arrowhead { fill:var(--muted); }
+  .det { fill:var(--det); } .seg { fill:var(--seg); }
+  .eyebrow { font-size:13px; letter-spacing:1.6px; font-weight:600; }
+</style>
+<text x="123.0" y="34" text-anchor="middle" class="muted eyebrow">PREPROCESS</text>
+<text x="357.0" y="34" text-anchor="middle" class="muted eyebrow">OFFLINE AUGMENT</text>
+<text x="591.0" y="34" text-anchor="middle" class="muted eyebrow">MODEL</text>
+<text x="825.0" y="34" text-anchor="middle" class="muted eyebrow">POST-PROCESS</text>
+<text x="1068.0" y="34" text-anchor="middle" class="muted eyebrow">OUTPUT</text>
+<line x1="20" y1="50" x2="1180" y2="50" style="stroke:var(--grid)" stroke-width="1"/>
+<circle cx="27" cy="74" r="6" class="det"/>
+<text x="42" y="80" font-size="18" font-weight="700" class="ink">Detection<tspan font-weight="400" font-size="16" class="ink2" dx="10">600 train · 400 eval images · bounding boxes</tspan></text>
+<rect x="20" y="96" width="206" height="124" rx="12" class="node"/>
+<rect x="36" y="114" width="22" height="4" rx="2" class="det"/>
+<text x="36" y="146" font-size="18" font-weight="700" class="ink">TIFF → PNG</text>
+<text x="36" y="176" font-size="16" class="ink2">JSON → COCO format</text>
+<text x="36" y="199" font-size="16" class="ink2">90/10 split, seed 42</text>
+<path d="M230 158.0 H246" class="edge"/>
+<path d="M245 153.0 L252 158.0 L245 163.0 Z" class="arrowhead"/>
+<rect x="254" y="96" width="206" height="124" rx="12" class="node"/>
+<rect x="270" y="114" width="22" height="4" rx="2" class="det"/>
+<text x="270" y="146" font-size="18" font-weight="700" class="ink">Augment ×5</text>
+<text x="270" y="176" font-size="16" class="ink2">flip · bbox-safe crop</text>
+<text x="270" y="199" font-size="16" class="ink2">colour · noise · blur</text>
+<path d="M464 158.0 H480" class="edge"/>
+<path d="M479 153.0 L486 158.0 L479 163.0 Z" class="arrowhead"/>
+<rect x="488" y="96" width="206" height="124" rx="12" class="node" style="fill:var(--det-tint);stroke:var(--det)"/>
+<rect x="504" y="114" width="22" height="4" rx="2" class="det"/>
+<text x="504" y="146" font-size="18" font-weight="700" class="ink">DINO</text>
+<text x="504" y="176" font-size="16" class="ink2">Swin-L · COCO init</text>
+<text x="504" y="199" font-size="16" class="ink2">5 epochs · AdamW</text>
+<path d="M698 158.0 H714" class="edge"/>
+<path d="M713 153.0 L720 158.0 L713 163.0 Z" class="arrowhead"/>
+<rect x="722" y="96" width="206" height="124" rx="12" class="node"/>
+<rect x="738" y="114" width="22" height="4" rx="2" class="det"/>
+<text x="738" y="146" font-size="18" font-weight="700" class="ink">Score ≥ 0.35</text>
+<text x="738" y="176" font-size="16" class="ink2">favours precision</text>
+<text x="738" y="199" font-size="16" class="ink2">for F-β (β = 0.5)</text>
+<path d="M932 158.0 H948" class="edge"/>
+<path d="M947 153.0 L954 158.0 L947 163.0 Z" class="arrowhead"/>
+<rect x="956" y="132.0" width="224" height="52" rx="10" class="node"/>
+<path d="M970 145.0 h12 l6 6 v20 h-18 z" style="fill:none;stroke:var(--det)" stroke-width="2" stroke-linejoin="round"/>
+<text x="998" y="163.0" font-size="15" class="ink mono">bbox.json</text>
+<circle cx="27" cy="274" r="6" class="seg"/>
+<text x="42" y="280" font-size="18" font-weight="700" class="ink">Segmentation<tspan font-weight="400" font-size="16" class="ink2" dx="10">2,653 train · 2,500 eval crops · polygons</tspan></text>
+<rect x="20" y="296" width="206" height="124" rx="12" class="node"/>
+<rect x="36" y="314" width="22" height="4" rx="2" class="seg"/>
+<text x="36" y="346" font-size="18" font-weight="700" class="ink">TIFF → PNG</text>
+<text x="36" y="376" font-size="16" class="ink2">polygons → masks</text>
+<text x="36" y="399" font-size="16" class="ink2">90/10 split, seed 42</text>
+<path d="M230 358.0 H246" class="edge"/>
+<path d="M245 353.0 L252 358.0 L245 363.0 Z" class="arrowhead"/>
+<rect x="254" y="296" width="206" height="124" rx="12" class="node"/>
+<rect x="270" y="314" width="22" height="4" rx="2" class="seg"/>
+<text x="270" y="346" font-size="18" font-weight="700" class="ink">Augment ×5</text>
+<text x="270" y="376" font-size="16" class="ink2">plus the originals</text>
+<text x="270" y="399" font-size="16" class="ink2">flip · colour · noise</text>
+<path d="M464 358.0 H480" class="edge"/>
+<path d="M479 353.0 L486 358.0 L479 363.0 Z" class="arrowhead"/>
+<rect x="488" y="296" width="206" height="124" rx="12" class="node" style="fill:var(--seg-tint);stroke:var(--seg)"/>
+<rect x="504" y="314" width="22" height="4" rx="2" class="seg"/>
+<text x="504" y="346" font-size="18" font-weight="700" class="ink">Mask2Former</text>
+<text x="504" y="376" font-size="16" class="ink2">Swin-L · ADE20K init</text>
+<text x="504" y="399" font-size="16" class="ink2">15k iters · 256 × 256</text>
+<path d="M698 358.0 H714" class="edge"/>
+<path d="M713 353.0 L720 358.0 L713 363.0 Z" class="arrowhead"/>
+<rect x="722" y="296" width="206" height="124" rx="12" class="node"/>
+<rect x="738" y="314" width="22" height="4" rx="2" class="seg"/>
+<text x="738" y="346" font-size="18" font-weight="700" class="ink">Polygonize</text>
+<text x="738" y="376" font-size="16" class="ink2">contours ≥ 10 px</text>
+<text x="738" y="399" font-size="16" class="ink2">Douglas–Peucker</text>
+<path d="M932 358.0 H948" class="edge"/>
+<path d="M947 353.0 L954 358.0 L947 363.0 Z" class="arrowhead"/>
+<rect x="956" y="332.0" width="224" height="52" rx="10" class="node"/>
+<path d="M970 345.0 h12 l6 6 v20 h-18 z" style="fill:none;stroke:var(--seg)" stroke-width="2" stroke-linejoin="round"/>
+<text x="998" y="363.0" font-size="15" class="ink mono">segmentation.json</text>
+<line x1="20" y1="450" x2="1180" y2="450" style="stroke:var(--grid)" stroke-width="1"/>
+<text x="20" y="478" class="muted eyebrow">HOW IT'S SCORED</text>
+<rect x="20" y="494" width="360" height="66" rx="12" class="node"/>
+<circle cx="42" cy="519" r="6" class="det"/>
+<text x="58" y="525" font-size="17" font-weight="700" class="ink">Detection → F-β, β = 0.5</text>
+<text x="58" y="547" font-size="15.5" class="ink2">IoU-matched boxes · precision-weighted</text>
+<rect x="20" y="578" width="360" height="66" rx="12" class="node"/>
+<circle cx="42" cy="603" r="6" class="seg"/>
+<text x="58" y="609" font-size="17" font-weight="700" class="ink">Segmentation → F1</text>
+<text x="58" y="631" font-size="15.5" class="ink2">pixel-based overlap with polygons</text>
+<rect x="470" y="528" width="300" height="82" rx="12" class="node"/>
+<text x="620.0" y="563" text-anchor="middle" font-size="18" font-weight="700" class="ink">Harmonic mean</text>
+<text x="620.0" y="587" text-anchor="middle" font-size="15.5" class="ink2">the weaker task dominates</text>
+<path d="M384 527.0 C425.0 527.0 425.0 555.0 462 555.0" class="edge"/>
+<path d="M461 550.0 L468 555.0 L461 560.0 Z" class="arrowhead"/>
+<path d="M384 611.0 C425.0 611.0 425.0 583.0 462 583.0" class="edge"/>
+<path d="M461 578.0 L468 583.0 L461 588.0 Z" class="arrowhead"/>
+<path d="M774 569.0 H852" class="edge"/>
+<path d="M851 564.0 L858 569.0 L851 574.0 Z" class="arrowhead"/>
+<rect x="860" y="512" width="320" height="114" rx="14" class="node" style="stroke:var(--det);stroke-width:2"/>
+<text x="888" y="552" class="muted eyebrow">PRIVATE LEADERBOARD</text>
+<text x="886" y="602" font-size="44" font-weight="800" class="ink">0.7341</text>
+<text x="1050" y="588" font-size="18" font-weight="700" class="ink">7th of 467</text>
+<text x="1050" y="610" font-size="15.5" class="ink2">code verified</text>
+</svg>
